@@ -112,3 +112,36 @@ sendEmail();
 ```
 
 
+## Consideraciones para las Clases
+Las clases deben de tener nombres formados por un sustantivo o clases de sustantivo. Debemos de evitar nombres genéricos porque esto puede llevarnos a que las clases realicen demasiado trabajo o más trabajo del que deberían de hacer. A continuación tenemos una serie de nombres malos, a pesar de que esto es subjetivo.
+```
+// Malos
+class Manager {};
+class Data {};
+class Info {};
+class Processor {};
+class SpecialMonsterView {};
+```
+
+Tenemos que tener en considereación lo siguiente:
+* El nombre es lo más importante de la clase: Esto ayuda a a darle un sentido lógico a su vida. Cuando tenemos un nombre muy generico en la clase, vamos a terminar asignando muchas responsabilidades a la misma, por lo cual va a ser dificil de mantener, va a ser dificil de actualizar y eso es lo que nosotros estamos tratando de evitar.
+* Formados por un sustantivo l frases de sustantivo.
+* No deben ser demasiado genéricos. 
+* Usar UpperCamelCase
+
+Usualmente, para saber que un nombre de una clase es correcto nos podemos hacer tres preguntas:
+1. ¿Qué exactamente hace la clase?
+2. ¿Cómo exactamente esta clase realiza cierta tarea?
+3. ¿Hay algo específico sobre su ubicación?
+
+* Si algo no tiene sentido, lo podemos remover o refactorizar en el peor de los casos.
+
+Más palabras !== mejor nombre
+Entre más palabras no significa que el nombre sea mejor. Por ejemplo, la siguiente clase tiene un nombre exageradamente largo y se podría simplificar:
+```
+class SpelialViewingCaseMonsterEventsHandlerActivitySingleton {};
+```
+
+De igual manera que con un nombre que no especifique muy bien sus responsabilidades, un monbre muy largo igualmente podría asignar muchas responsabilidades a una clase.
+
+
