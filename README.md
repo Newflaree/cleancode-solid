@@ -144,4 +144,79 @@ class SpelialViewingCaseMonsterEventsHandlerActivitySingleton {};
 
 De igual manera que con un nombre que no especifique muy bien sus responsabilidades, un monbre muy largo igualmente podría asignar muchas responsabilidades a una clase.
 
+## Nombres de funciones, argumentos y parámetros.
+Sabemos que estamos desarrollando código limpio cuando cada función hace exactamente lo que su nombre indica.
+Revisemos el siguiente ejemplo:
+```
+function sendEmail( toWhom: string ): boolean {
+  // Check if is an email
+  if ( !toWhom.includes( '@' ) ) return false;
+
+  // Build body or message
+
+  // Send email
+
+  // If everything goes well
+  return true;
+}
+```
+Si nosotros tenemos esta función llama sendEmail y tenemos como parámetro el toWhom, sabes que es de tipo string y la función retorna un valor boolean. Lo importante es que la función nos indica claramente que quiero enviar un correo electrónico a ese destinatario y si regresa un true significa que lo hizo bien, de lo contrario regresará un false. Si revisamos el cuerpo de la función, primero revisamos una manera básica de validar que el string recivido en los argumentos de la función es un email. Luego, los comentarios representan acciones que se realizaran para enviar el email, esto queda subjetivo, no significa que se va a hacer dentro de la misma función, ya hablaremos sobre delegar estas responsabilidades a otras funciones.
+
+Ahora lo comparamos con este otro ejercicio:
+```
+function sendEmail(): boolean {
+  // Check if user exists
+
+  // Check password
+
+  // Create use in db
+
+  // If everything goes well
+  return true;
+```
+En este nuevo ejemplo, no recibimos ningún argumento en la función pero sabemos que regresa un valor boolean. De momento el problema no es que no venga un email para enviar un correo, esto puede venir desde otro scope o tomarlo desde un nivel superior. El problema está en cómo está construido el cuerpo de la función. En el primer comentario vamos a verificar si el usuario existe, esto no tiene mucho sentido aquí. Luego revisar la contraseño, esto no tine un sentido claramente definido en esta función. Menos sentido tiene el siguiente comentario que dice crear usuario en base de datos, esto no hace sentido con el nombre de la función en primer lugar. Si nos fijamos en el cuerpo completo de la función, parece que está creando un nuevo usario para el sistema, no está enviando un email en ningún momento. Entonces, a esto nos referimos, las funciones deben de hacer exáctamente lo que dice su nombre.
+
+Antes de seguir trabajando con las funciones, tenemos que dejar algunas cosas en claro.
+Cuando nosotros definimos una función le estamos indicando que necesita ciertos parámetros. A diferencia de cuando ejecutamos esta función, le pasamos argumentos:
+```
+function sendEmail( toWhom: string ): boolean { // El toWhom es el parámetro que estamos solicitando.
+  // Check if is an email
+  if ( !toWhom.includes( '@' ) ) return false;
+  // Build body or message
+  // Send email
+
+  // If everything goes well
+  return true;
+}
+
+sendEmail( 'test@test.com' ); // Cuando ejecutamos esta función, le pasamos uno o más argumentos concretos.
+```
+
+No hay un límete en el número de parámetros al momento de definir una función, sin embargo, se recomienda limitar a 3 parámetros posicionales. 
+```
+// Bien
+function sendEmail( toWhom: string, from: string, body: string ): boolean {}
+```
+Realmente no es un problema, pero cuando las funciones piden muchos parámetros se ven muy aglomeradas.
+```
+// Mal
+function sendEmail( toWhom: string, from: string, body: string, subject: string, apiKey: string ): boolean {}
+```
+
+Pero qué pasa cuando tenemos que mandar a fuerza más de tres argumentos?
+En este caso vamos a crear una interfaz si estamos trabajando en ts. Si no, tenemos que prescindir de la interfaz y del tipo de dato.
+```
+// Mejor
+interface SendEmailOptions {
+  toWhom: string;
+  from: string;
+  body: string;
+  subject: string;
+  apiKey: string;
+}
+
+function sendEmail( { toWhom, from, body, subject, apiKey }: SendEmailOptions ): boolean {}
+```
+También se recomienda ordenar los parámetros de manera alfabética, este no es el caso pero se recomienda.
+
 
