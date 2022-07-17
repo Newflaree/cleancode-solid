@@ -220,3 +220,32 @@ function sendEmail( { toWhom, from, body, subject, apiKey }: SendEmailOptions ):
 También se recomienda ordenar los parámetros de manera alfabética, este no es el caso pero se recomienda.
 
 
+
+
+
+
+# Princiíos SOLID
+Todos los code smells que hemos revisado anteriormente se tratan de resolver con los principios SOLID. La idea de esto no es sólo resolver un problema si no que también el código debe de tener la calidad esperada.
+
+Los Principios SOLID nos indeican cómo organizar nuestras funciones y estructuras de datos en componentes y cómo dichos componentes deben estar interconectados.
+
+Normalmente esto está más enfocado al trabajo con clases, aunque esto no importa del todo ya que muchos de estos princiíos pueden ser aplicados no sólo al paradigma de programación orientada a objetos si no que también lo podemos hacer con nuestros módulos. Entiendace por módulo algún archivo o función de primer nivel en JS o alguna estructura de datos en la cual nosotros podamos agrupar información o métodos, u obtener de ahí propiedades ya que no que estamos a punto de observar se puede aplicar a la mayor parte de nuestra programación. En definitiva, cada producto de software tiene componentes que se comunican entre si encargandose que la información fluya. Aquí es dónde nosotros podremos aplicar los principios SOLID:
+
+## ¿Qué son específicamente los principios SOLID?
+Básicamente, son los acrónimos de:
+* Single Responsability: Responsabilidad única.
+* Open and Close: Abierto y cerrado.
+* Liskov Substitution: Sustitución de Liskov.
+* Interface Segregation: Segregación de interfáz.
+* Dependency Inversion: Inversión de dependencias.
+
+Algo que es muy importante resaltar aquí es que estos son principios, no son reglas.
+Una regla es de obligatorio cumplimiento, si no se aplica algo no va a funcionar, si no seguimos estos lineamientos tendremos problemas. Esta es la diferencia con un principio, los principios están aquí porque son recomendaciones que pueden ayudarte a hacer mejor las cosas, no significa que si tú decides no seguir un principio no va a funcionar, esa es la es la principal diferencia entre un principio y una regla.o
+
+## SRP - Princpio de responsabilidad única.
+> "Nunca debería haber más de un motivo por el cual cambiar una clase" -Robert C. Martin.
+
+Una clase debe tener una única responsabilidad. Tener más de una responsabilidad en nuestras clases y módulos hace que nuestro código sea dificil de leer, testear y mantener. Es decir, hace que el código sea menos flexible, más rigido y, en definitiva, menos tolerable al cambio. También vale la pena aclarar que tener una única responsabilidad no es sinónimo de hacer una única cosa. Queremos que nuestras clases y métodos se enfoquen en hacer una serie de procesos que estén estrechamente relacionados entre si. El principio de responsabilidad única no se basa en crear clases con un único método, sino en crear componentes que sólo esten expuestos a una fuente de cambio.
+
+
+
