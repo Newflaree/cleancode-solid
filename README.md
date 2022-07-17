@@ -257,4 +257,14 @@ Una clase debe tener una única responsabilidad. Tener más de una responsabilid
 
 En resumen, el principio de responsabilidad única significa que cada clase o módulo es responsable de hacer algo, y ese algo debe de hacerlo bien.
 
+## OCP - Principio de abierto y cerrado.
+Este principio depende mucho del contexto y se entiende el contexto por la forma en la que estamos corriendo nuestra aplicación, puede ser que estemos en diferentes frameworks, diferentes ambientes, a esto nos referimos con el contexto. Pero en pocas palabras, este principio establece que las entidades de software (clases, módulos, métodos, etc) deben estar abiertas para la extensión, pero cerradas para la modificación.
+
+La forma más sencilla de demostrar este principio es considerar un método que hace una cosa. Pensemos que tenemos que grabar o escribir en un archivo de texto, entonces nuestra clase o método, tenemos un archivo que dice "Escribir en archivo hola.txt", luego vienen nuevos requisitos y nos dicen que el archivo cambiará a "Escribir en archivo adios.txt". Entonces, si no estamos aplicando bien el principio significaría que tenemos que abrir el método en el cual escribimos nuestro archivo de hola.txt y físicamente cambiarlo a adios.txt. Esto es una violación a este principio, nuestras entidades deben de estar abiertas a la extención pero cerradas a la modificación. Entonces, si queremos verlo de otra manera, la forma para resolver ese principio hubiera sido que creemos un método o una función en el cual se reciba el nombre del archivo y no importa el valor que teníamos antes. Cambiar el valor implica de que nuestra clase, función o método puede aceptar y es tolerante al cambio. Sin embargo, nosotros no tuvimos que abrir el módulo donde se encuentra la función writeFile() para hacer el cambio. La función sigue estando exactamente igual.
+```
+writeFile( fileName: string ) {}
+```
+A esto nos referimos con que esté cerrado al cambio.
+
+El principio de abierto-cerrado también se puede lograr de muchas otras maneras, incluso mediante el uso de la herencia o mediante patrones de diseño de composición como el patrón de estrategia.
 
