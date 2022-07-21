@@ -268,3 +268,9 @@ A esto nos referimos con que esté cerrado al cambio.
 
 El principio de abierto-cerrado también se puede lograr de muchas otras maneras, incluso mediante el uso de la herencia o mediante patrones de diseño de composición como el patrón de estrategia.
 
+## Detectar violaciones de OPC
+Como se puede observar en los ejemplos de código, el princiío OPC está estrechamente relacionado con el principio de responsabilidad única. Para detectar violaciones a este principio podemos fijarnos en lo siguiente:
+* Los cambios normalmente afectan nuestra clase o módulo constantemente. Es decir, cuando nosotrostenemos un nuevo requerimiento, ese nuevo requerimiento implica tener que abrir una clase, hacer modificaciones a los métodos o módulos y entonces, en ese punto, nosotros nos debemos de dar cuenta de que estamos violando el princiío OPC.
+* Cuando una clase o módulo afecta muchas capas. (Presentación, almacenamiento, etc). Es decir, cuando una clase o módulo tiene demasiadas interacciones con diferentes capas de nuestra aplicación. Usualmente esto significa que esta capa tiene demasiadas responsabilidades y a las vez viola el princiío de responsabilidad única con el de abierto-cerrado.
+> "Cuando tengamos una duda en la cual preferimos optimizar el código para ganar algunas milésimas de segundo o hacer on código que sea más fácil de leer para otras personas. Si la diferencia el mínima entre estos dos puntos, se debe de optar por escribir un mejor código que sea más fácil de leer para las otras personas". Por ejemplo, si podemos escribir una función en una sola línea y esta única línea es muy dificil de leer y, a demás, estamos ganando muy poco o casi nada es mejor optar por un código que sea más fácil de leer.
+
