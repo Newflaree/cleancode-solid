@@ -274,3 +274,13 @@ Como se puede observar en los ejemplos de código, el princiío OPC está estrec
 * Cuando una clase o módulo afecta muchas capas. (Presentación, almacenamiento, etc). Es decir, cuando una clase o módulo tiene demasiadas interacciones con diferentes capas de nuestra aplicación. Usualmente esto significa que esta capa tiene demasiadas responsabilidades y a las vez viola el princiío de responsabilidad única con el de abierto-cerrado.
 > "Cuando tengamos una duda en la cual preferimos optimizar el código para ganar algunas milésimas de segundo o hacer on código que sea más fácil de leer para otras personas. Si la diferencia el mínima entre estos dos puntos, se debe de optar por escribir un mejor código que sea más fácil de leer para las otras personas". Por ejemplo, si podemos escribir una función en una sola línea y esta única línea es muy dificil de leer y, a demás, estamos ganando muy poco o casi nada es mejor optar por un código que sea más fácil de leer.
 
+## Liskov Substitution - Principio de Sustitución de Liskov
+> "Las funciones que utlicen punteros o referenciasa clases base deben ser capaces de usar objetos de clases derivadas sin saberlo". -Robert C. Martin
+
+### Principio de Liskov
+Se conoce así por la dortora Barbara Jane Huberman, mas conocida como Barbara Liskov.
+Fue ganadora del Turing Award en el año 2008. Por contribuciones a los fundamentos prácticos y teóricos del leguaje de programación y el diseño de sistemas, especialmente relacionados con la abstracción de datos, la tolerancia a fallos y la computación distribuida.
+
+### ¿Qué nos dice este principio propiamente?
+"Siendo U un subtipo de T, cualquier instancia de T debería poder ser sustituida por cualquier isntancia de U sin alterar las propiedades del sistema".
+En otras palabra, si una clase A es extendida por una clase B, deberíamos ser capaces de sustituir cualquier instancia de A por cualquier objeto de B sin que el sistema deje de funcionar o se presenten comportamientos inesperados.
