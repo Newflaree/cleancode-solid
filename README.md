@@ -295,3 +295,68 @@ Este principio establece que los clientes no deberían verse forzados a depender
 Este principio está estrechamente relacionado con el principio de responsabilidad única y el principio de sustitución de liskov. 
 
 * Si las interfaces que diseñamos nos obligan a violar los principios de responsabilidad única y sustitución de Liskov. Esto significa que podemos estar violentando el principio de segregación de interfaz. Mantener tus interfaces simples y específicas y, sobre todo, tener presente la clase cliente que las vas a implementar te ayudará a respetar este principio. Usualmente, el principio de segregación de interfaz suele ser un poco tedioso de implementar ya que hay separar y segregar mucho código o hay que refactorizar mucho. Posiblemente, cuando nos demos cuenta de que estamos violentando este principio, tengamos que hacer muchas refactorizaciones y muchos desarrolladores optan por dejarlo así en lugar de ir más allá y escribir un mejor código. A la larga  todo lo es refactorización se transforma en un muy buen retorno a futuro. Cuando refactorizamos y escribimos un código que es tolerable al cambio, esto nos ayudará bastante a futuro, especialmente si estamos haciendo un proyecto que tiene una longevidad bastante amplia. Puede ser que estemos desarrollando un software y sabemos que va a vivir por 6 meses, puede que en ese caso no sea crítico seguir todo al pie de la letra. El principio de segregación de interfaz es sumaente util cuando tenemos un proyecto con muchos años de vida util.
+
+## Dependency Inversion - Principio de inversión de dependencias.
+> "Los módulos de alto nivel no deben depender de módulos de bajo nivel. Ambos deben depender de abstracciones. Las obstracciones no deben depender de concreciones. Los detalles deben depender de abstracciones". - Robert C. Martin
+
+* Los módulos de alto nivel no deberían depender de módulos de bajo nivel: Los componentes importantes o capas superiores no deben de depender de los componentes que son menos importantes. Dicho en otras palabras, podríamos tener una plicación y la parte del Front-End es la que dicta las reglas de negocio, esto no tendría sentido.
+* Ambos deberían depender de abstracciones: Si tratamos de recordar los ejemplos del principio de sustitución de Liskov, nosotros creamos una clase abstracta. Esa clase abstracta dicto cómo van a lucir las clases de las cuales se extiende.
+* Las abstracciones no deberían depender de detalles.
+* Los detalles deberían depender de abstracciones.
+
+Los componentes más importantes son aquellos centrados en resolver el problema subyacente al negocio, es dicir, la capa de dominio. 
+Los menos importantes son los que están próximos a la infraestructura, es decir, aquellos relacionados con la UI, la persistencia, la comunicación con API externas, etc.
+
+Imaginemos que en nuestra aplicación estamos usando un sistema de persistencia basado en archivos de texto o en archivos json que están físicamente en filesystem, pero por motivos de rendimiento o escalabilidad lo pasaremos a mongodb, o a sql o cualquier base de datos. Si nostros tenemos desacroplada correctamente nuestra capa de persistencia y lo hemos aplicado, ya sea con el patrón adaptador o el patrón de repositorio, la implementación de dicha capa debe de ser indiferente a las reglas de negocio, en este caso sería la capa de dominio. Por lo tanto, cambiar la persistencia a mongodb debería ser una tarea relativamente sencilla, no deberíamos de modificar en muchos lugares, tal vez en un par de clases. Posiblemente deberíamos crear una nueva clase para manejar la conexión con la nueva base de datos, y esa nueva clase trabajar con nuestro adaptador. Las demás capas no deberían de verse afectadas, esta debería ser una tarea trivial para las demás partes de nuestra aplicación. Esto debería pasar exactamente igual si un webservice cambia, puede ser un simple cambio en el url, hasta un cambio en el tipo de dato que está regresando, o hasta que regrese un formato diferente (de xml a json, por ejemplo). Estos cambios deberían de ser sencillos de hacer y de adaptarse en nuestra aplicación. Si al momento de decidir trabajar ahora en json y este cambio está afectando mucho a nuestra aplicación, significa que estamos violentando en princiopio de inversión de dependencias, y ahí darnos cuenta que nuestra aplicación está altamente acoplada con un montón de dependencias de terceros  que nosotros deberíamos de haber controlado en una primera instancia.
+
+Cuando hablamos de depender de abstracciones, nos estamos refiriendo a clases abstractas o interfaces.
+
+Uno de los motivos más importantes por el cual las reglas de negocio o capa de dominio deben depender de estas y no de concreciones es que aumenta su tolerancia al cambio. 
+
+### ¿Por qué obtenemos este beneficio?
+Cada cambio en un componente abstracto implica un cambio en su implementación. 
+Por el contrario, los cambios en implementaciones concretas, la mayoría de las veces, no requieren cambios en las interfaces que implementa. 
+Es decir, esto nos va a permitir a nosotros tener una separación de qué cosas tenemos que modificar y qué cosas no deberían de cambiar a pasar de que tengamos un nuevo requerimiento en nuestra aplicación.
+
+### Inyección de dependencias
+Dependencia en programación, significa que un módulo o componente requiere de otro para poder realizar su trabajo.
+En algún momento nuestro programa o aplicación llegará a estar formado por muchos módulos. Cuando esto pase, es cuando debemos usar inyección de dependencias. Esto puede quedar mucho a discreción del desarrollador ya que se puede saber de antemano cuando un proyecto es grande, pero si no conocemos la magnitud del proyecto y este comienza a crecer mucho, ahí es donde debemos de tener presente la inyección de dependencias. Esto nos permite poder controlar las funcionalidades desde un punto de vista concreto o desde un sitio en concreto en lugar de tenerlas esparcidas por todo el programa. A demás de que este aislamiento nos permitirá a nosotros realizar un testing mucho más fácil, el lugar de ver cómo hacemos un montón de mocks o un montón de spies para tratar de hacer nuestro testing correctamente.
+revicemos en siguiente ejemplo:
+```
+class UseCase {
+  constructor() {
+    this.externalService = new ExternalService();
+  }
+
+  doSomething() {
+    this.externalService.doExternalTask();
+  }
+}
+
+class ExternalService {
+  doExternalTask() {
+    console.log( 'Doing task...' );
+  }
+}
+```
+En este caso nos encontramos con un caso de alto acoplamiento ya que UseCase tiene una dependencia oculta.
+Refactoricemos un poco el código y tenemos lo siguiente:
+```
+class UseCase {
+  constructor( externalService: ExternalService ) {
+    this.externalSErvice = externalService;
+  }
+
+  doSomething() {
+    this.externalService.doExternalTask();
+  }
+}
+
+class ExternalService {
+  doExternalTask() {
+    console.log( 'Doing task...' );
+  }
+}
+```
+En este caso estamos aplicando el principio de inversión de dependencias, dentro del constructor tenemos el externalService y le decimos que es de tipo ExternalService y lo recibimos a la hora de crear la instancia de nuestro UseCase, luego tenemos exactamente el mismo método de doSomething, es decir, para que nuestra clase A haga su trabajo, depende de la clase B, la cuál le está proporsionando ese doExternalTask. Ahora nuestra clase UseCase depende de nuestra clase ExternalService. Hay muchas razones por las que este patrón es altamente recomendado, una de las principales es que ayuda a aplicar el principio de responsabilidad única y también nos ayuda a que es testing sea mucho más fácil. Muchas veces las personas no quieres realizar testing porque el código está tan enredado internamente y con tantas dependencias ocultas que es muy dificil de probar, lo cual hace que nadie quiera realizar testing.
+
