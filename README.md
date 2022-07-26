@@ -283,6 +283,10 @@ Fue ganadora del Turing Award en el año 2008. Por contribuciones a los fundamen
 
 ### ¿Qué nos dice este principio propiamente?
 "Siendo U un subtipo de T, cualquier instancia de T debería poder ser sustituida por cualquier isntancia de U sin alterar las propiedades del sistema".
+
 En otras palabra, si una clase A es extendida por una clase B, deberíamos ser capaces de sustituir cualquier instancia de A por cualquier objeto de B sin que el sistema deje de funcionar o se presenten comportamientos inesperados.
 
+## Interface Segregation - Principio de segregacipon de interfaz
+> "Los clientes no deberían estar obligados a depender de interfaces que no utilicen". - Robert C. Martin
 
+Este principio establece que los clientes no deberían verse forzados a depender de interfaces que no usan.
