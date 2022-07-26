@@ -290,3 +290,8 @@ En otras palabra, si una clase A es extendida por una clase B, deberíamos ser c
 > "Los clientes no deberían estar obligados a depender de interfaces que no utilicen". - Robert C. Martin
 
 Este principio establece que los clientes no deberían verse forzados a depender de interfaces que no usan.
+
+## Detectar violaciones de ISP
+Este principio está estrechamente relacionado con el principio de responsabilidad única y el principio de sustitución de liskov. 
+
+* Si las interfaces que diseñamos nos obligan a violar los principios de responsabilidad única y sustitución de Liskov. Esto significa que podemos estar violentando el principio de segregación de interfaz. Mantener tus interfaces simples y específicas y, sobre todo, tener presente la clase cliente que las vas a implementar te ayudará a respetar este principio. Usualmente, el principio de segregación de interfaz suele ser un poco tedioso de implementar ya que hay separar y segregar mucho código o hay que refactorizar mucho. Posiblemente, cuando nos demos cuenta de que estamos violentando este principio, tengamos que hacer muchas refactorizaciones y muchos desarrolladores optan por dejarlo así en lugar de ir más allá y escribir un mejor código. A la larga  todo lo es refactorización se transforma en un muy buen retorno a futuro. Cuando refactorizamos y escribimos un código que es tolerable al cambio, esto nos ayudará bastante a futuro, especialmente si estamos haciendo un proyecto que tiene una longevidad bastante amplia. Puede ser que estemos desarrollando un software y sabemos que va a vivir por 6 meses, puede que en ese caso no sea crítico seguir todo al pie de la letra. El principio de segregación de interfaz es sumaente util cuando tenemos un proyecto con muchos años de vida util.
