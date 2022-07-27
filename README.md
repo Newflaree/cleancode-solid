@@ -359,4 +359,3 @@ class ExternalService {
 }
 ```
 En este caso estamos aplicando el principio de inversión de dependencias, dentro del constructor tenemos el externalService y le decimos que es de tipo ExternalService y lo recibimos a la hora de crear la instancia de nuestro UseCase, luego tenemos exactamente el mismo método de doSomething, es decir, para que nuestra clase A haga su trabajo, depende de la clase B, la cuál le está proporsionando ese doExternalTask. Ahora nuestra clase UseCase depende de nuestra clase ExternalService. Hay muchas razones por las que este patrón es altamente recomendado, una de las principales es que ayuda a aplicar el principio de responsabilidad única y también nos ayuda a que es testing sea mucho más fácil. Muchas veces las personas no quieres realizar testing porque el código está tan enredado internamente y con tantas dependencias ocultas que es muy dificil de probar, lo cual hace que nadie quiera realizar testing.
-
